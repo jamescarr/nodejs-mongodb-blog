@@ -4,6 +4,7 @@ require "should"
 describe "routes", ->
   req = 
     params: {}
+    body: {}
   res = 
     redirect: (route) ->
       # do nothing
@@ -29,11 +30,12 @@ describe "routes", ->
       req.body.post = 
         title: "My Post!"
         body: "My wonderful post."
-      res.render = (view, vars) ->
-          view.should.equal "index"
-          vars.posts.should.eql [{title: 'My Post!', body: "My wonderful post."}]
-          done()
 
-      routes.addPost req, res
-      routes.index req, res
+      routes.addPost req, redirect: (route) ->
+        route.should.eql "/"
+        routes.index req, render: (view, vars) ->
+          view.should.equal "index"
+          vars.posts.should.eql [{id: 0, title: 'My Post!', body: "My wonderful post."}]
+          done()
+      
 

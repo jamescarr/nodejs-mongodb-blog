@@ -5,6 +5,7 @@
   , "dependencies": {
       "express": "2.5.4"
     , "jade": ">= 0.0.1"
+    , "mongoose": "2.4.1"
   }
   , "devDependencies": {
       "mocha": "0.10.0"
