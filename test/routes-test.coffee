@@ -1,4 +1,6 @@
-routes = require "../routes/index"
+routes   = require "../routes/index"
+mongoose = require "mongoose"
+Post     = require "../models/Post"
 require "should"
 
 describe "routes", ->
@@ -10,6 +12,10 @@ describe "routes", ->
       # do nothing
     render: (view, vars) -> 
       # do nothing
+  before (done) ->
+    mongoose.connect 'mongodb://localhost/coffeepress', ->
+      Post.remove done
+
   describe "index", ->
     it "should display index with posts", (done)->
       res.render = (view, vars) ->
@@ -35,7 +41,8 @@ describe "routes", ->
         route.should.eql "/"
         routes.index req, render: (view, vars) ->
           view.should.equal "index"
-          vars.posts.should.eql [{id: 0, title: 'My Post!', body: "My wonderful post."}]
+          vars.posts[0].title.should.eql 'My Post!'
+          vars.posts[0].body.should.eql "My wonderful post."
           done()
       
 
