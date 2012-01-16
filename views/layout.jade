@@ -1,6 +1,16 @@
-!!!
+!!!5
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body!= body
+    link(rel="stylesheet", href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css")
+    style(type="text/css")
+      #content { padding-top: 60px;}
+  body
+    .topbar-wrapper
+      .topbar
+        .topbar-inner
+          .container
+            h3: a(href="/") My Coffeepress Blog
+            ul.nav
+              li: a(href="/post/new") New Post
+    #content.container!=body
